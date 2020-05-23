@@ -9,6 +9,6 @@ import (
 const TODO_LIST = "tudoList"
 
 type TodoList interface {
-	Create(context.Context, model.TodoList) error
+	Create(context.Context, *model.TodoList) error
 	GetAll(context.Context) ([]model.TodoList, error)
 }

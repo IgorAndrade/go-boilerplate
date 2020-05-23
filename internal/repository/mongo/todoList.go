@@ -21,19 +21,19 @@ func Init() {
 		Scope: di.App,
 		Build: func(ctn di.Container) (interface{}, error) {
 			s := ctn.Get(MONGO).(*mgo.Session)
-			return TodoList{
-				mongo: &mongo{
-					session:        s,
-					db:             DB_NAME,
-					collectionName: "todoList",
-				},
-			}, nil
+			return newTodoList(s), nil
 		},
 	})
 }
 
-func (t TodoList) Create(c context.Context, tl model.TodoList) error {
-	return t.insert(&tl)
+func newTodoList(s *mgo.Session) repository.TodoList {
+	return &TodoList{
+		mongo: &mongo{session: s, db: DB_NAME, collectionName: "todoList"},
+	}
+}
+
+func (t TodoList) Create(c context.Context, tl *model.TodoList) error {
+	return t.insert(tl)
 }
 
 func (t TodoList) GetAll(context.Context) ([]model.TodoList, error) {
