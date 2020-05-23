@@ -2,6 +2,7 @@ package rest
 
 import (
 	"github.com/IgorAndrade/go-boilerplate/app/api"
+	"github.com/IgorAndrade/go-boilerplate/app/api/rest/middleware"
 	route "github.com/IgorAndrade/go-boilerplate/app/api/rest/routes"
 	"github.com/IgorAndrade/go-boilerplate/app/config"
 	"github.com/labstack/echo/v4"
@@ -15,6 +16,7 @@ type server struct {
 //NewServer Create a new Rest server
 func NewServer() api.Server {
 	e := echo.New()
+	middleware.ApplyMiddleware(e)
 	route.ApplyRoutes(e)
 	return &server{
 		server: e,
