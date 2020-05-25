@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/IgorAndrade/go-boilerplate/app/config"
+	"github.com/IgorAndrade/go-boilerplate/internal/repository"
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
 	"github.com/sarulabs/di"
@@ -13,8 +14,8 @@ import (
 const MONGO = "mongo"
 const DB_NAME = "todo"
 
-func init() {
-	config.AddDef(di.Def{
+func Define(b *di.Builder) {
+	b.Add(di.Def{
 		Name:  MONGO,
 		Scope: di.App,
 		Build: func(ctn di.Container) (interface{}, error) {
@@ -24,6 +25,14 @@ func init() {
 				log.Fatal(err)
 			}
 			return s, nil
+		},
+	})
+	b.Add(di.Def{
+		Name:  repository.TODO_LIST,
+		Scope: di.App,
+		Build: func(ctn di.Container) (interface{}, error) {
+			s := ctn.Get(MONGO).(*mgo.Session)
+			return newTodoList(s), nil
 		},
 	})
 }

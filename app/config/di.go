@@ -6,12 +6,10 @@ import (
 	"github.com/sarulabs/di"
 )
 
-var b *di.Builder = newBuilder()
-
 //Container used to DI
 var Container di.Container
 
-func newBuilder() *di.Builder {
+func NewBuilder() *di.Builder {
 	builder, err := di.NewBuilder()
 	if err != nil {
 		log.Fatal(err)
@@ -20,12 +18,7 @@ func newBuilder() *di.Builder {
 	return builder
 }
 
-//AddDef add dependency into container
-func AddDef(defs ...di.Def) error {
-	return b.Add(defs...)
-}
-
 //Build container
-func Build() {
+func Build(b *di.Builder) {
 	Container = b.Build()
 }

@@ -15,3 +15,4 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 cmd/todoList/debug
+cmd/todoList/__debug_bin
