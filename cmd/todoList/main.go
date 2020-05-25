@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 
+	"github.com/IgorAndrade/go-boilerplate/internal/service"
+
 	"github.com/IgorAndrade/go-boilerplate/internal/repository/mongo"
 
 	rest "github.com/IgorAndrade/go-boilerplate/app/api/rest/webserver"
@@ -11,6 +13,7 @@ import (
 
 func main() {
 	mongo.Init()
+	service.Init()
 	config.Build()
 	defer config.Container.Delete()
 
