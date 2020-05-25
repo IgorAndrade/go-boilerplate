@@ -27,8 +27,8 @@ func getAll(c echo.Context, ctn di.Container) error {
 	r := ctn.Get(repository.TODO_LIST).(repository.TodoList)
 	list, err := r.GetAll(c.Request().Context())
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error)
+		return err
 	}
-	c.JSON(http.StatusCreated, list)
+	c.JSON(http.StatusOK, list)
 	return nil
 }
