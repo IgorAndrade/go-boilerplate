@@ -24,7 +24,7 @@ type Mongo struct {
 var CONFIG = "config"
 var c *Config
 
-func init() {
+func Define(b *di.Builder) {
 	c = &Config{
 		Rest: Rest{
 			Port: os.Getenv("API_PORT"),
@@ -35,7 +35,7 @@ func init() {
 			Password: os.Getenv("MONGO_PASSWORD"),
 		},
 	}
-	AddDef(di.Def{
+	b.Add(di.Def{
 		Name:  CONFIG,
 		Scope: di.App,
 		Build: func(ctn di.Container) (interface{}, error) {

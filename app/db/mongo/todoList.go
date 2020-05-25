@@ -3,27 +3,14 @@ package mongo
 import (
 	"context"
 
-	"github.com/IgorAndrade/go-boilerplate/app/config"
 	"github.com/IgorAndrade/go-boilerplate/internal/model"
 	"github.com/IgorAndrade/go-boilerplate/internal/repository"
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
-	"github.com/sarulabs/di"
 )
 
 type TodoList struct {
 	*mongo
-}
-
-func Init() {
-	config.AddDef(di.Def{
-		Name:  repository.TODO_LIST,
-		Scope: di.App,
-		Build: func(ctn di.Container) (interface{}, error) {
-			s := ctn.Get(MONGO).(*mgo.Session)
-			return newTodoList(s), nil
-		},
-	})
 }
 
 func newTodoList(s *mgo.Session) repository.TodoList {

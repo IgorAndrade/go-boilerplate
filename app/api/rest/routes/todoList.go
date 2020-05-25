@@ -6,7 +6,6 @@ import (
 	"github.com/IgorAndrade/go-boilerplate/internal/service"
 
 	"github.com/IgorAndrade/go-boilerplate/internal/model"
-	"github.com/IgorAndrade/go-boilerplate/internal/repository"
 	"github.com/labstack/echo/v4"
 	"github.com/sarulabs/di"
 )
@@ -26,8 +25,8 @@ func create(c echo.Context, ctn di.Container) error {
 }
 
 func getAll(c echo.Context, ctn di.Container) error {
-	r := ctn.Get(repository.TODO_LIST).(repository.TodoList)
-	list, err := r.GetAll(c.Request().Context())
+	s := ctn.Get(service.TODO_LIST).(service.TodoList)
+	list, err := s.GetAll(c.Request().Context())
 	if err != nil {
 		return err
 	}

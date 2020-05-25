@@ -3,7 +3,6 @@ package service
 import (
 	"context"
 
-	"github.com/IgorAndrade/go-boilerplate/app/config"
 	"github.com/sarulabs/di"
 
 	"github.com/IgorAndrade/go-boilerplate/internal/model"
@@ -12,8 +11,8 @@ import (
 
 const TODO_LIST = "todoListService"
 
-func Init() {
-	config.AddDef(di.Def{
+func Define(b *di.Builder) {
+	b.Add(di.Def{
 		Name:  TODO_LIST,
 		Scope: di.Request,
 		Build: func(ctn di.Container) (interface{}, error) {
