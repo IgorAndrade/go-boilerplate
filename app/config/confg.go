@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/sarulabs/di"
@@ -27,7 +28,7 @@ var c *Config
 func Define(b *di.Builder) {
 	c = &Config{
 		Rest: Rest{
-			Port: os.Getenv("API_PORT"),
+			Port: fmt.Sprintf(":%s", os.Getenv("API_PORT")),
 		},
 		Mongo: Mongo{
 			Address:  os.Getenv("MONGO_URL"),

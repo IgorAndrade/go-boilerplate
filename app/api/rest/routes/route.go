@@ -5,10 +5,15 @@ import (
 
 	"github.com/IgorAndrade/go-boilerplate/app/config"
 	"github.com/labstack/echo/v4"
-	"github.com/sarulabs/di"
 )
 
-type handlerDiReq func(c echo.Context, ctn di.Container) error
+type GetterDI interface {
+	SafeGet(string) (interface{}, error)
+	Get(string) interface{}
+	Fill(string, interface{}) error
+}
+
+type handlerDiReq func(c echo.Context, ctn GetterDI) error
 
 func ApplyRoutes(e *echo.Echo) {
 	e.POST("/todo-list", injectDiReq(create))
